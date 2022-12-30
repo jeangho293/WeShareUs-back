@@ -4,7 +4,7 @@
   "description": "test11",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "tsc-watch --OnSuccess \"ts-node src/server.ts\""
   },
   "author": "",
@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "dotenv": "^16.0.3",
+    "joi": "^17.7.0",
     "jsonwebtoken": "^9.0.0",
     "koa": "^2.14.1",
     "koa-body": "^6.0.1",
