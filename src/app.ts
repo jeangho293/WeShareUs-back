@@ -2,6 +2,7 @@ import * as Koa from 'koa';
 import * as logger from 'koa-logger';
 import koaBody from 'koa-body';
 import { connectMysql } from './databases';
+import { globalRouter } from './routes';
 import 'dotenv/config';
 
 class App {
@@ -16,11 +17,12 @@ class App {
     connectMysql();
     this.app.use(logger());
     this.app.use(koaBody({ multipart: true }));
+    this.app.use(globalRouter.middleware());
   }
 
   listen(port: string) {
     this.app.listen(port, () => {
-      console.log(`http:localhost:${port}`);
+      console.log(`http://localhost:${port}`);
     });
   }
 }
