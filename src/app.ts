@@ -3,6 +3,7 @@ import * as logger from 'koa-logger';
 import koaBody from 'koa-body';
 import { connectMysql } from './databases';
 import { globalRouter } from './routes';
+import { errorHandler } from './middlewares/error-handler';
 import 'dotenv/config';
 
 class App {
@@ -10,6 +11,7 @@ class App {
 
   constructor() {
     this.app = new Koa();
+    this.errorHandlerMiddleWares();
     this.initMiddleWares();
   }
 
@@ -18,6 +20,10 @@ class App {
     this.app.use(logger());
     this.app.use(koaBody({ multipart: true }));
     this.app.use(globalRouter.middleware());
+  }
+
+  private errorHandlerMiddleWares() {
+    this.app.use(errorHandler);
   }
 
   listen(port: string) {
