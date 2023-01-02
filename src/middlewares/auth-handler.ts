@@ -20,7 +20,7 @@ export const authHandler = async (ctx: Context, next: () => Promise<any>) => {
   const { token } = ctx.headers as { token: string };
   const { id, role } = verifyToken<{ id: string; role: RoleTypes }>(token);
 
-  ctx.state.id = id;
+  ctx.state.userId = id;
   ctx.state.role = role;
   await next();
 };
