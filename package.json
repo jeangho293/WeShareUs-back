@@ -13,6 +13,7 @@
     "@types/jest": "^29.2.4",
     "@types/jsonwebtoken": "^9.0.0",
     "@types/koa": "^2.13.5",
+    "@types/koa__cors": "^3.3.0",
     "@types/koa-joi-router": "^8.0.4",
     "@types/koa-logger": "^3.1.2",
     "@types/lodash": "^4.14.191",
@@ -33,6 +34,7 @@
   },
   "dependencies": {
     "@hapi/boom": "^10.0.0",
+    "@koa/cors": "^4.0.0",
     "dotenv": "^16.0.3",
     "joi": "^17.7.0",
     "jsonwebtoken": "^9.0.0",
