@@ -29,6 +29,6 @@ export class AdminService {
     }
 
     const token = signToken({ id: admin.id, role: admin.role });
-    return { token, role: admin.role };
+    return { token };
   }
 }

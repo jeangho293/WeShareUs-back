@@ -13,7 +13,6 @@ const bodySchema = Joi.object({
 }).required();
 const outputSchema = Joi.object({
   token: Joi.string().disallow('').required().description('로그인 토큰'),
-  role: Joi.string().required().description('role'),
 });
 
 export default {

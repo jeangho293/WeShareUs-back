@@ -16,7 +16,6 @@ describe('POST /admin/login', () => {
     const output = Spec.validate?.output?.[200] as { body: { data: Joi.AnySchema } };
     const { error } = output.body.data.validate({
       token: 'this is token',
-      role: 'admin',
     });
 
     expect(error).toBeUndefined();
