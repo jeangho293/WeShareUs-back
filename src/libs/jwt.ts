@@ -9,6 +9,8 @@ export function verifyToken<T>(token: string) {
   try {
     return verify(token, String(process.env.JWT_SECRET_KEY)) as T;
   } catch (err) {
-    throw unauthorized('Invalid token');
+    const verifyError = unauthorized('Invalid token');
+    verifyError.data = { errorMessage: 'Invalid token' };
+    throw verifyError;
   }
 }

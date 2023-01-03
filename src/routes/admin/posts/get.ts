@@ -8,6 +8,7 @@ export default {
   validate: {},
   handler: async (ctx) => {
     // 1. Get body, params, querystring
+
     // 2. Get container service
     const postService = Container.get(PostService);
 

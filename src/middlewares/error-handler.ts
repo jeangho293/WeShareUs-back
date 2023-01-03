@@ -25,9 +25,8 @@ export const errorHandler = async (ctx: Context, next: () => Promise<any>) => {
           payload: { statusCode, message },
         },
       } = err;
-
       customError.statusCode = statusCode;
-      customError.message = errorMessage;
+      customError.message = errorMessage || '';
       customError.slackMessage = message;
     }
 

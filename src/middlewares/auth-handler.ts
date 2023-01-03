@@ -4,7 +4,7 @@ import { verifyToken } from '../libs/jwt';
 import { RoleTypes } from '../services/user/domain/user.entity';
 
 export const adminAuthHandler = async (ctx: Context, next: () => Promise<any>) => {
-  const { token } = ctx.headers as { token: string };
+  const token = ctx.get('authorization').split(' ')[1];
   const { id, role } = verifyToken<{ id: string; role: RoleTypes }>(token);
 
   if (role !== 'admin') {
@@ -17,7 +17,7 @@ export const adminAuthHandler = async (ctx: Context, next: () => Promise<any>) =
 };
 
 export const authHandler = async (ctx: Context, next: () => Promise<any>) => {
-  const { token } = ctx.headers as { token: string };
+  const token = ctx.get('authorization').split(' ')[1];
   const { id, role } = verifyToken<{ id: string; role: RoleTypes }>(token);
 
   ctx.state.userId = id;
