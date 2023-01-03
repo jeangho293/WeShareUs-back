@@ -8,6 +8,10 @@ export class PostRepository extends Repository<Post> {
     super(Post);
   }
 
+  find() {
+    return this.getManager().find();
+  }
+
   save(post: Post) {
     return this.getManager().save(post);
   }

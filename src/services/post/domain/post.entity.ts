@@ -5,6 +5,8 @@ type PostConstructor = {
   title: string;
   content: string;
   author: string;
+  state: string;
+  temporaryStorage: boolean;
   userId: string;
 };
 
@@ -17,6 +19,12 @@ export class Post extends Aggregate {
   content!: string;
 
   @Column()
+  state!: string;
+
+  @Column()
+  temporaryStorage!: boolean;
+
+  @Column()
   author!: string;
 
   @Column()
@@ -27,6 +35,8 @@ export class Post extends Aggregate {
     if (args) {
       this.title = args.title;
       this.content = args.content;
+      this.state = args.state;
+      this.temporaryStorage = args.temporaryStorage;
       this.author = args.author;
       this.userId = args.userId;
     }

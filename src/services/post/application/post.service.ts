@@ -12,7 +12,23 @@ export class PostService {
   @Inject()
   private readonly userRepository!: UserRepository;
 
-  async add({ title, content, userId }: { title: string; content: string; userId: string }) {
+  async list() {
+    return this.postRepository.find();
+  }
+
+  async add({
+    title,
+    content,
+    userId,
+    state,
+    temporaryStorage,
+  }: {
+    title: string;
+    content: string;
+    userId: string;
+    state: string;
+    temporaryStorage: boolean;
+  }) {
     const user = await this.userRepository.findOne({ id: userId });
 
     if (!user) {
@@ -21,7 +37,14 @@ export class PostService {
       });
     }
 
-    const post = Post.Of({ title, content, author: user.nickname, userId: user.id });
+    const post = Post.Of({
+      title,
+      content,
+      state,
+      temporaryStorage,
+      author: user.nickname,
+      userId: user.id,
+    });
     await this.postRepository.save(post);
   }
 }

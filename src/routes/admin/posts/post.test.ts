@@ -7,6 +7,8 @@ describe('POST /admin/posts', () => {
     const { error } = body.validate({
       title: 'title',
       content: 'content',
+      state: 'public',
+      temporaryStorage: false,
     });
 
     expect(error).toBeUndefined();
