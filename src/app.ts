@@ -2,8 +2,8 @@ import * as Koa from 'koa';
 import * as logger from 'koa-logger';
 import koaBody from 'koa-body';
 import * as koaCors from '@koa/cors';
-import { globalRouter } from './databases/routes';
 import { connectMysql } from './databases';
+import { globalRouter } from './routes';
 import 'dotenv/config';
 
 class App {

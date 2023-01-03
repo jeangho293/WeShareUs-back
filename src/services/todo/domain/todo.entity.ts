@@ -1,12 +1,11 @@
 import { Column, Entity } from 'typeorm';
 import { Aggregate } from '../../../libs/aggregate';
-import { DateToPublishedDate } from '../../../libs/dayjs';
-import type { PublishedDate } from '../../../libs/types';
+import { PublishedDate } from '../../../libs/types';
 
 type TodoConstructor = {
   item: string;
-  done: boolean;
-  date: Date;
+  order: number;
+  publishedDate: PublishedDate;
 };
 
 @Entity()
@@ -15,6 +14,9 @@ export class Todo extends Aggregate {
   item!: string;
 
   @Column()
+  order!: number;
+
+  @Column({ default: false })
   done!: boolean;
 
   @Column()
@@ -24,8 +26,8 @@ export class Todo extends Aggregate {
     super();
     if (args) {
       this.item = args.item;
-      this.done = args.done;
-      this.publishedDate = DateToPublishedDate(args.date);
+      this.order = args.order;
+      this.publishedDate = args.publishedDate;
     }
   }
 

@@ -11,12 +11,12 @@ export abstract class Aggregate {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ select: false })
   private readonly createdAt!: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ select: false })
   private readonly updatedAt!: Date;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ select: false })
   private readonly deletedAt!: Date;
 }
