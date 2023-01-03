@@ -2,6 +2,7 @@ import * as Koa from 'koa';
 import * as logger from 'koa-logger';
 import koaBody from 'koa-body';
 import * as koaCors from '@koa/cors';
+import { globalRouter } from './databases/routes';
 import { connectMysql } from './databases';
 import 'dotenv/config';
 
@@ -18,6 +19,7 @@ class App {
     this.app.use(koaCors());
     this.app.use(logger());
     this.app.use(koaBody({ multipart: true }));
+    this.app.use(globalRouter.middleware());
   }
 
   listen(port: string) {
