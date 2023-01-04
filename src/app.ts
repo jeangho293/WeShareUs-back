@@ -1,6 +1,6 @@
 import * as Koa from 'koa';
 import * as logger from 'koa-logger';
-import koaBody from 'koa-body';
+import koaBody, { HttpMethodEnum } from 'koa-body';
 import * as koaCors from '@koa/cors';
 import { connectMysql } from './databases';
 import { globalRouter } from './routes';
@@ -18,7 +18,12 @@ class App {
     connectMysql();
     this.app.use(koaCors());
     this.app.use(logger());
-    this.app.use(koaBody({ multipart: true }));
+    this.app.use(
+      koaBody({
+        multipart: true,
+        parsedMethods: [HttpMethodEnum.POST, HttpMethodEnum.PATCH, HttpMethodEnum.DELETE],
+      })
+    );
     this.app.use(globalRouter.middleware());
   }
 

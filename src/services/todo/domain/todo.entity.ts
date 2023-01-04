@@ -34,4 +34,9 @@ export class Todo extends Aggregate {
   static Of(args: TodoConstructor) {
     return new Todo(args);
   }
+
+  update(done: boolean) {
+    this.done = done;
+    return this;
+  }
 }

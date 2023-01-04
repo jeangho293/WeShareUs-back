@@ -17,6 +17,10 @@ export class TodoRepository extends Repository<Todo> {
   find(args?: { publishedDate?: PublishedDate }) {
     return this.getManager().find({ where: strip(args), order: { order: 'ASC' } });
   }
+
+  delete(todoIds: string[]) {
+    return this.getManager().delete(todoIds);
+  }
 }
 
 function strip(args: any) {
