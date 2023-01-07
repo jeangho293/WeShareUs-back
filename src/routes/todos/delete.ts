@@ -26,7 +26,7 @@ export default {
     const todoService = Container.get(TodoService);
 
     // 3. Get service result
-    await todoService.delete({ todoIds });
+    await todoService.deleteTodos({ todoIds });
 
     // 4. Send response
     ctx.body = {};

@@ -25,7 +25,7 @@ export class TodoService {
    * @params todoItems - todo 내용들
    * @params publishedDate - todo 게시 날짜
    */
-  async add({
+  async addTodo({
     todoItems,
     publishedDate,
   }: {
@@ -44,7 +44,7 @@ export class TodoService {
    * @params todoItems - 수정될 todo Id와 done을 가지고있다.
    * @params publishedDate - todo 생성 날짜
    */
-  async update({
+  async updateDone({
     todoItems,
     publishedDate,
   }: {
@@ -64,7 +64,7 @@ export class TodoService {
     await this.todoRepository.save(updatedTodos);
   }
 
-  async delete({ todoIds }: { todoIds: string[] }) {
+  async deleteTodos({ todoIds }: { todoIds: string[] }) {
     await this.todoRepository.delete(todoIds);
   }
 }

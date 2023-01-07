@@ -40,7 +40,7 @@ export default {
     const todoService = Container.get(TodoService);
 
     // 3. Get service result
-    await todoService.add({ todoItems, publishedDate });
+    await todoService.addTodo({ todoItems, publishedDate });
 
     // 4. Send response
     ctx.status = 201;
