@@ -1,6 +1,6 @@
 import { Column, Entity } from 'typeorm';
 import { Aggregate } from '../../../libs/aggregate';
-import { PublishedDate } from '../../../libs/types';
+import type { PublishedDate } from '../../../libs/types';
 
 type TodoConstructor = {
   item: string;

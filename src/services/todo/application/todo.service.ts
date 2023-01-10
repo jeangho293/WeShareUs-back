@@ -48,15 +48,15 @@ export class TodoService {
     todoItems,
     publishedDate,
   }: {
-    todoItems: { todoId: string; done: boolean }[];
+    todoItems: Todo[];
     publishedDate: PublishedDate;
   }) {
     const todos = await this.todoRepository.find({ publishedDate });
     const updatedTodos = todoItems.map((todoItem) => {
-      const todo = _.find(todos, { id: todoItem.todoId });
+      const todo = _.find(todos, { id: todoItem.id });
       if (!todo) {
-        throw badRequest(`${todoItem.todoId} is not existed todo item.`, {
-          errorMessage: `${todoItem.todoId} is not existed todo item.`,
+        throw badRequest(`${todoItem.id} is not existed todo item.`, {
+          errorMessage: `${todoItem.id} is not existed todo item.`,
         });
       }
       return todo.update(todoItem.done);

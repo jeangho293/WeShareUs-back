@@ -15,12 +15,18 @@ describe('PATCH /todos', () => {
     const body = Spec.validate?.body as Joi.AnySchema;
     const { error } = body.validate([
       {
-        todoId: 'uuid-1',
+        id: 'uuid-1',
+        item: 'todo-item-1',
         done: true,
+        order: 1,
+        publishedDate: '2023-01-10',
       },
       {
-        todoId: 'uuid-2',
+        id: 'uuid-2',
+        item: 'todo-item-2',
         done: true,
+        order: 2,
+        publishedDate: '2023-01-10',
       },
     ]);
 
