@@ -34,11 +34,12 @@ export default {
     // 1. Get body, params, querystring
     const { publishedDate } = ctx.request.query as { publishedDate: PublishedDate };
     const todoItems: Todo[] = ctx.request.body;
+    console.log(todoItems);
     // 2. Get container service
     const todoService = Container.get(TodoService);
 
     // 3. Get service result
-    await todoService.updateDone({ todoItems, publishedDate });
+    await todoService.updateTodo({ todoItems, publishedDate });
 
     // 4. Send response
     ctx.body = {};

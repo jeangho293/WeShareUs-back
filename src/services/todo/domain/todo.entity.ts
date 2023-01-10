@@ -35,8 +35,11 @@ export class Todo extends Aggregate {
     return new Todo(args);
   }
 
-  update(done: boolean) {
-    this.done = done;
+  update(args: { done: boolean; item?: string }) {
+    this.done = args.done;
+    if (args.item) {
+      this.item = args.item;
+    }
     return this;
   }
 }
