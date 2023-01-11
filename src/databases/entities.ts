@@ -1,3 +1,3 @@
-import { Todo } from '../services/todo/domain/todo.entity';
+import { Todo, TodoItem } from '../services/todo/domain/todo.entity';
 
-export default [Todo];
+export default [Todo, TodoItem];
