@@ -18,11 +18,13 @@ describe('GET /todos', () => {
       publishedDate: '2023-01-11',
       todoItems: [
         {
+          id: 'todo-item-1',
           order: 1,
           done: false,
           content: 'todoItem-content',
         },
         {
+          id: 'todo-item-2',
           order: 2,
           done: false,
           content: 'todoItem-content-2',

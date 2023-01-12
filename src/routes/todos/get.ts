@@ -10,13 +10,14 @@ const outputSchema = Joi.object({
   publishedDate: Joi.string().required().description('YYYY-MM-DD'),
   todoItems: Joi.array()
     .items({
+      id: Joi.string().required().description('todo 목록의 uuid'),
       order: Joi.number().required().description('todo 목록의 순서'),
       done: Joi.boolean().required().description('todo 목록의 checked 유무'),
       content: Joi.string().required().description('todo 목록의 내용'),
     })
     .required()
     .description('해당 날짜의 todo 목록들'),
-}).required();
+});
 
 export default {
   path: '/',

@@ -2,6 +2,11 @@ import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'ty
 import { Aggregate } from '../../../libs/aggregate';
 import type { PublishedDate } from '../../../libs/types';
 
+export type TodoTypes = {
+  id: string;
+  publishedDate: PublishedDate;
+  todoItems: TodoItem[];
+};
 type TodoConstructor = {
   publishedDate: PublishedDate;
 };
@@ -11,7 +16,10 @@ export class Todo extends Aggregate {
   @Column()
   publishedDate!: PublishedDate;
 
-  @OneToMany(() => TodoItem, (todoItem) => todoItem.todo, { eager: true })
+  @OneToMany(() => TodoItem, (todoItem) => todoItem.todo, {
+    cascade: ['update'],
+    eager: true,
+  })
   todoItems!: TodoItem[];
 
   constructor(args: TodoConstructor) {
@@ -25,14 +33,14 @@ export class Todo extends Aggregate {
     return new Todo(args);
   }
 
-  update(args: { done: boolean; item?: string }) {
-    return this;
+  async update(args: any) {
+    return Object.assign(this, args);
   }
 }
 
 @Entity()
-export class TodoItem {
-  @PrimaryGeneratedColumn()
+export class TodoItem extends Aggregate {
+  @Column()
   order!: number;
 
   @Column()

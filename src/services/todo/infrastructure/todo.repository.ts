@@ -10,11 +10,11 @@ export class TodoRepository extends Repository<Todo> {
     super(Todo);
   }
 
-  save(todos: Todo[]) {
-    return this.getManager().save(todos);
+  save(todo: Todo) {
+    return this.getManager().save(todo);
   }
 
-  findOne(args?: { publishedDate?: PublishedDate }) {
+  findOne(args: { id?: string; publishedDate?: PublishedDate }) {
     return this.getManager().findOne({ where: strip(args) });
   }
 
