@@ -18,6 +18,7 @@
     "@types/koa-logger": "^3.1.2",
     "@types/lodash": "^4.14.191",
     "@types/node": "^18.11.18",
+    "@types/node-cron": "^3.0.7",
     "@typescript-eslint/eslint-plugin": "^5.47.1",
     "@typescript-eslint/parser": "^5.47.1",
     "eslint": "^8.22.0",
@@ -46,6 +47,7 @@
     "koa-logger": "^3.2.1",
     "lodash": "^4.17.21",
     "mysql2": "^2.3.3",
+    "node-cron": "^3.0.2",
     "reflect-metadata": "^0.1.13",
     "typedi": "^0.10.0",
     "typeorm": "^0.3.11"

@@ -5,7 +5,7 @@ import * as koaCors from '@koa/cors';
 import { connectMysql } from './databases';
 import { globalRouter } from './routes';
 import 'dotenv/config';
-import { Context } from 'koa';
+import { errorHandler } from './middlewares/error-handler';
 
 class App {
   private app;
@@ -16,7 +16,7 @@ class App {
   }
 
   private initMiddleWares() {
-    this.app.use(App.errorHandler);
+    this.app.use(errorHandler);
     connectMysql();
     this.app.use(koaCors());
     this.app.use(logger());
@@ -27,16 +27,6 @@ class App {
       })
     );
     this.app.use(globalRouter.middleware());
-  }
-
-  // TODO: 에러 핸들러로 만들어야한다.
-  static async errorHandler(ctx: Context, next: () => Promise<any>) {
-    try {
-      await next();
-    } catch (err) {
-      console.log(err);
-      ctx.body = err;
-    }
   }
 
   listen(port: string) {
