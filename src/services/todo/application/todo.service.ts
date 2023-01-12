@@ -13,7 +13,7 @@ export class TodoService {
    *
    * @param publishedDate - todo 게시 날짜
    */
-  async list({ publishedDate }: { publishedDate: PublishedDate }) {
+  async retrieve({ publishedDate }: { publishedDate: PublishedDate }) {
     const todo = await this.todoRepository.findOne({ publishedDate });
     return todo;
   }
@@ -24,8 +24,8 @@ export class TodoService {
    * @param publishedDate
    * @param todoItems
    */
-  async updateTodo({ id, publishedDate, todoItems }: TodoTypes) {
-    const todo = await this.todoRepository.findOne({ id });
+  async edit({ id, publishedDate, todoItems }: TodoTypes) {
+    const todo = await this.todoRepository.findOne({ id, publishedDate });
 
     if (!todo) {
       throw badRequest(`published Todo is not existed to  at ${publishedDate}`, {

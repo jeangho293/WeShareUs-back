@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { Aggregate } from '../../../libs/aggregate';
 import type { PublishedDate } from '../../../libs/types';
 
@@ -40,6 +40,7 @@ export class Todo extends Aggregate {
 
 @Entity()
 export class TodoItem extends Aggregate {
+  // TODO: order 컬럼은 필요가 없을 듯하다.
   @Column()
   order!: number;
 

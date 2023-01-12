@@ -38,7 +38,7 @@ export default {
     const todoService = Container.get(TodoService);
 
     // 3. Get service result
-    const data = await todoService.list({ publishedDate });
+    const data = await todoService.retrieve({ publishedDate });
 
     // 4. Send response
     ctx.body = { data };
