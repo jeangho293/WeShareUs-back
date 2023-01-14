@@ -8,9 +8,8 @@ const bodySchema = Joi.object({
   publishedDate: Joi.string().required().description('YYYY-MM-DD'),
   todoItems: Joi.array()
     .items({
-      id: Joi.string().required().description('todoItem-uuid'),
+      id: Joi.number().optional().description('todoItem-uuid'),
       content: Joi.string().required().description('todo 내용'),
-      order: Joi.number().required().description('todo 순서'),
       done: Joi.boolean().required().description('todo 체크박스 유무'),
     })
     .required()

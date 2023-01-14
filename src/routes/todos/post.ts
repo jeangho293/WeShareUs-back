@@ -8,7 +8,7 @@ export default {
   method: 'POST',
   handler: async (ctx) => {
     // 1. Get body, params, querystring
-    const { publishedDate }: { publishedDate: PublishedDate } = ctx.request.body;
+    const { publishedDate } = ctx.request.query as { publishedDate: PublishedDate };
 
     // 2. Get container service
     const todoService = Container.get(TodoService);

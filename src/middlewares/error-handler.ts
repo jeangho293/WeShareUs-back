@@ -15,6 +15,7 @@ export const errorHandler = async (ctx: Context, next: () => Promise<any>) => {
       customError.statusCode = err.output.statusCode;
       customError.data = err.data.errorMessage || '';
     }
+    console.error(err);
     ctx.status = customError.statusCode;
     ctx.body = customError.data;
   }

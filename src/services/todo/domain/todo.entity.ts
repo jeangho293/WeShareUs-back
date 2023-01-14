@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Aggregate } from '../../../libs/aggregate';
 import type { PublishedDate } from '../../../libs/types';
 
@@ -17,7 +17,7 @@ export class Todo extends Aggregate {
   publishedDate!: PublishedDate;
 
   @OneToMany(() => TodoItem, (todoItem) => todoItem.todo, {
-    cascade: ['update'],
+    cascade: ['insert', 'update'],
     eager: true,
   })
   todoItems!: TodoItem[];
@@ -39,10 +39,9 @@ export class Todo extends Aggregate {
 }
 
 @Entity()
-export class TodoItem extends Aggregate {
-  // TODO: order 컬럼은 필요가 없을 듯하다.
-  @Column()
-  order!: number;
+export class TodoItem {
+  @PrimaryGeneratedColumn()
+  private id!: number;
 
   @Column()
   content!: string;
@@ -52,4 +51,11 @@ export class TodoItem extends Aggregate {
 
   @ManyToOne(() => Todo, (todo) => todo.id)
   todo!: Todo;
+
+  constructor(args: { content: string; done: boolean }) {
+    if (args) {
+      this.content = args.content;
+      this.done = args.done;
+    }
+  }
 }

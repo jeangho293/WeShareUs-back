@@ -18,7 +18,6 @@ export class TodoService {
         errorMessage: `A list of todo at ${publishedDate} already issued.`,
       });
     }
-
     await this.todoRepository.save(Todo.Of({ publishedDate }));
   }
 
