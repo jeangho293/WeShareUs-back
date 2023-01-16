@@ -1,11 +1,10 @@
 import * as Joi from 'joi';
 import Spec from './patch';
 
-describe('PATCH /todos', () => {
+describe('PATCH /todos/:todoId', () => {
   it('정상적인 body', () => {
     const body = Spec.validate?.body as Joi.AnySchema;
     const { error } = body.validate({
-      id: 'todo-uuid',
       publishedDate: '2023-01-11',
       todoItems: [
         {
@@ -24,6 +23,15 @@ describe('PATCH /todos', () => {
           done: false,
         },
       ],
+    });
+
+    expect(error).toBeUndefined();
+  });
+
+  it('정상적인 query', () => {
+    const params = Spec.validate?.params as Joi.AnySchema;
+    const { error } = params.validate({
+      todoId: 'todo-uuid',
     });
 
     expect(error).toBeUndefined();

@@ -1,10 +1,12 @@
 import { Spec, Joi } from 'koa-joi-router';
 import Container from 'typedi';
-import { TodoService } from '../../services/todo/application/todo.service';
-import type { TodoTypes } from '../../services/todo/domain/todo.entity';
+import { TodoService } from '../../../services/todo/application/todo.service';
+import type { TodoTypes } from '../../../services/todo/domain/todo.entity';
 
+const paramsSchema = Joi.object({
+  todoId: Joi.string().required().description('todo-uuid'),
+});
 const bodySchema = Joi.object({
-  id: Joi.string().required().description('todo-uuid'),
   publishedDate: Joi.string().required().description('YYYY-MM-DD'),
   todoItems: Joi.array()
     .items({
@@ -17,10 +19,11 @@ const bodySchema = Joi.object({
 }).required();
 
 export default {
-  path: '/',
+  path: '/:todoId',
   method: 'PATCH',
   validate: {
     type: 'json',
+    params: paramsSchema,
     body: bodySchema,
     output: {
       200: {
@@ -30,13 +33,14 @@ export default {
   },
   handler: async (ctx) => {
     // 1. Get body, params, querystring
-    const { id, publishedDate, todoItems }: TodoTypes = ctx.request.body;
+    const { todoId } = ctx.request.params;
+    const { publishedDate, todoItems }: TodoTypes = ctx.request.body;
 
     // 2. Get container service
     const todoService = Container.get(TodoService);
 
     // 3. Get service result
-    await todoService.edit({ id, publishedDate, todoItems });
+    await todoService.edit({ id: todoId, publishedDate, todoItems });
 
     // 4. Send response
     ctx.body = {};

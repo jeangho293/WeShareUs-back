@@ -6,7 +6,7 @@ export abstract class Repository<T extends ObjectLiteral> {
 
   private readonly datasource;
 
-  constructor(entity: any) {
+  protected constructor(entity: any) {
     this.entity = entity;
     this.datasource = datasource;
   }
