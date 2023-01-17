@@ -1,5 +1,6 @@
 import { Column, Entity } from 'typeorm';
 import { badRequest } from '@hapi/boom';
+import { hashSync } from 'bcryptjs';
 import { Aggregate } from '../../../libs/aggregate';
 
 @Entity()
@@ -14,7 +15,7 @@ export class User extends Aggregate {
     super();
     if (args) {
       this.account = args.account;
-      this.password = args.password;
+      this.hashPassword(args.password);
     }
   }
 
@@ -24,5 +25,11 @@ export class User extends Aggregate {
         errorMessage: 'Reconfirmation password and password are different',
       });
     }
+    return new User(args);
+  }
+
+  private hashPassword(plainPassword: string) {
+    // FIXME: 추후에 ENV로 설정한다
+    this.password = hashSync(plainPassword, 10);
   }
 }
