@@ -1,7 +1,9 @@
 import { Column, Entity } from 'typeorm';
 import { badRequest } from '@hapi/boom';
+import { sign } from 'jsonwebtoken';
+import * as process from 'process';
 import { Aggregate } from '../../../libs/aggregate';
-import { hashPassword } from '../../../libs/hash';
+import { comparePassword, hashPassword } from '../../../libs/hash';
 
 @Entity()
 export class User extends Aggregate {
@@ -26,5 +28,13 @@ export class User extends Aggregate {
       });
     }
     return new User(args);
+  }
+
+  isCorrectPassword(plainPassword: string) {
+    return comparePassword(plainPassword, this.password);
+  }
+
+  signAccessToken() {
+    return sign({ id: this.id, account: this.account }, String(process.env.JWT_SECRET_KEY));
   }
 }

@@ -34,4 +34,28 @@ export class UserService {
 
     await this.userRepository.save(User.Of({ account, password, confirmPassword }));
   }
+
+  /**
+   *
+   * @param account - 회원 계정
+   * @param password - 비밀번호
+   * @return token - 인증 토큰
+   * @description 로그인 api
+   */
+  async login({ account, password }: { account: string; password: string }) {
+    const user = await this.userRepository.findOne({ account });
+
+    if (!user) {
+      throw badRequest(`${account} is not existed user.`, {
+        errorMessage: 'account or password is wrong.',
+      });
+    }
+    if (!user.isCorrectPassword(password)) {
+      throw badRequest(`${account}'s password is not correct.`, {
+        errorMessage: 'account or password is wrong.',
+      });
+    }
+
+    return { token: user.signAccessToken(), account: user.account };
+  }
 }
