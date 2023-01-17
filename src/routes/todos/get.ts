@@ -32,7 +32,6 @@ export default {
   handler: async (ctx) => {
     // 1. Get body, params, querystring
     const { publishedDate } = ctx.request.query as { publishedDate: string };
-    console.log(publishedDate);
 
     // 2. Get container service
     const todoService = Container.get(TodoService);
