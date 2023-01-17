@@ -1,5 +1,9 @@
 import { Context } from 'koa';
 import { Boom } from '@hapi/boom';
+import * as Slack from 'slack-node';
+
+const slack = new Slack();
+slack.setWebhook(String(process.env.SLACK));
 
 export const errorHandler = async (ctx: Context, next: () => Promise<any>) => {
   try {
@@ -7,16 +11,21 @@ export const errorHandler = async (ctx: Context, next: () => Promise<any>) => {
   } catch (err) {
     const customError = {
       statusCode: 500,
-      data: {
-        errorMessage: '',
-      },
+      errorMessage: 'Something is wrong',
     };
     if (err instanceof Boom) {
       customError.statusCode = err.output.statusCode;
-      customError.data = err.data.errorMessage || '';
+      customError.errorMessage = err.data.errorMessage || 'Something is wrong';
     }
-    console.error(err);
+
     ctx.status = customError.statusCode;
-    ctx.body = customError.data;
+    ctx.body = customError;
+    slack.webhook(
+      {
+        channel: '#whs-api',
+        text: `[Error:${customError.statusCode}] - ${customError.errorMessage}`,
+      },
+      (error, response) => {}
+    );
   }
 };
