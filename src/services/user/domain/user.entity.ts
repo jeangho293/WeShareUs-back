@@ -5,23 +5,28 @@ import * as process from 'process';
 import { Aggregate } from '../../../libs/aggregate';
 import { comparePassword, hashPassword } from '../../../libs/hash';
 
+export type RoleType = 'general' | 'admin';
 @Entity()
 export class User extends Aggregate {
+  @Column()
+  role!: RoleType;
+
   @Column()
   account!: string;
 
   @Column()
   password!: string;
 
-  constructor(args: { account: string; password: string }) {
+  constructor(args: { role: RoleType; account: string; password: string }) {
     super();
     if (args) {
+      this.role = args.role;
       this.account = args.account;
       this.password = hashPassword(args.password);
     }
   }
 
-  static Of(args: { account: string; password: string; confirmPassword: string }) {
+  static Of(args: { role: RoleType; account: string; password: string; confirmPassword: string }) {
     if (args.password !== args.confirmPassword) {
       throw badRequest(`Reconfirmation password and password are different.`, {
         errorMessage: 'Reconfirmation password and password are different.',
@@ -35,6 +40,9 @@ export class User extends Aggregate {
   }
 
   signAccessToken() {
-    return sign({ id: this.id, account: this.account }, String(process.env.JWT_SECRET_KEY));
+    return sign(
+      { id: this.id, account: this.account, role: this.role },
+      String(process.env.JWT_SECRET_KEY)
+    );
   }
 }

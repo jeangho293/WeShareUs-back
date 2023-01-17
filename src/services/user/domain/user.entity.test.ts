@@ -9,19 +9,30 @@ describe('User Entity 테스트', () => {
   describe('Of() 메소드 테스트', () => {
     it('정상적으로 User 객체를 생성한다.', () => {
       jest.mocked(hashPassword).mockImplementation(() => 'hashedPassword');
-      const user = User.Of({ account: 'account', password: '1234', confirmPassword: '1234' });
+      const user = User.Of({
+        account: 'account',
+        password: '1234',
+        confirmPassword: '1234',
+        role: 'general',
+      });
 
       expect(user).toEqual(
         plainToInstance(User, {
           account: 'account',
           password: 'hashedPassword',
+          role: 'general',
         })
       );
     });
 
     it('password !== confirmPassword면 에러를 발생시킨다.', () => {
       expect(() =>
-        User.Of({ account: 'account-test', password: '1234', confirmPassword: '비밀번호486' })
+        User.Of({
+          account: 'account-test',
+          password: '1234',
+          confirmPassword: '비밀번호486',
+          role: 'general',
+        })
       ).toThrow(badRequest(`Reconfirmation password and password are different.`));
     });
   });

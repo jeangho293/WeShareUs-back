@@ -22,12 +22,18 @@ describe('UserService 테스트', () => {
           id: 'user-uuid',
           account: 'test',
           password: '1234',
+          role: 'general',
         })
       );
 
       expect.assertions(1);
       await expect(() =>
-        userService.registerUser({ account: 'test', password: '1234', confirmPassword: '1234' })
+        userService.registerUser({
+          account: 'test',
+          password: '1234',
+          confirmPassword: '1234',
+          role: 'general',
+        })
       ).rejects.toThrowError(badRequest('test is already existed user.'));
     });
 
@@ -38,6 +44,7 @@ describe('UserService 테스트', () => {
           id: 'user-uuid',
           account: 'test',
           password: '1234',
+          role: 'general',
         })
       );
 
@@ -45,11 +52,13 @@ describe('UserService 테스트', () => {
         account: 'test',
         password: '1234',
         confirmPassword: '1234',
+        role: 'general',
       });
 
       expect(userRepository.save).toHaveBeenCalledTimes(1);
       expect(userRepository.save.mock.calls[0][0]).toHaveProperty('account', 'test');
       expect(userRepository.save.mock.calls[0][0]).toHaveProperty('password');
+      expect(userRepository.save.mock.calls[0][0]).toHaveProperty('role');
     });
   });
 });

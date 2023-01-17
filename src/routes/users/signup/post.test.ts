@@ -8,6 +8,7 @@ describe('POST /users/signup', () => {
       account: 'account',
       password: '1234',
       confirmPassword: '1234',
+      role: 'general',
     });
 
     expect(error).toBeUndefined();

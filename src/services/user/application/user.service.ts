@@ -1,7 +1,7 @@
 import { Inject, Service } from 'typedi';
 import { badRequest } from '@hapi/boom';
 import { UserRepository } from '../infrastructure/user.repository';
-import { User } from '../domain/user.entity';
+import { RoleType, User } from '../domain/user.entity';
 
 @Service()
 export class UserService {
@@ -16,10 +16,12 @@ export class UserService {
    * @description 회원가입 API
    */
   async registerUser({
+    role,
     account,
     password,
     confirmPassword,
   }: {
+    role: RoleType;
     account: string;
     password: string;
     confirmPassword: string;
@@ -32,7 +34,7 @@ export class UserService {
       });
     }
 
-    await this.userRepository.save(User.Of({ account, password, confirmPassword }));
+    await this.userRepository.save(User.Of({ role, account, password, confirmPassword }));
   }
 
   /**
