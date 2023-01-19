@@ -11,7 +11,7 @@ export class User extends Aggregate {
   @Column()
   role!: RoleType;
 
-  @Column()
+  @Column({ unique: true })
   account!: string;
 
   @Column()
