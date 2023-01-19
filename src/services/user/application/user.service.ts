@@ -49,12 +49,13 @@ export class UserService {
 
     if (!user) {
       throw badRequest(`${account} is not existed user.`, {
-        errorMessage: 'account or password is wrong.',
+        errorMessage: '계정 또는 비밀번호가 틀렸습니다.',
       });
     }
+
     if (!user.isCorrectPassword(password)) {
       throw badRequest(`${account}'s password is not correct.`, {
-        errorMessage: 'account or password is wrong.',
+        errorMessage: '계정 또는 비밀번호가 틀렸습니다.',
       });
     }
 
