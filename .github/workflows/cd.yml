@@ -27,11 +27,13 @@ jobs:
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/weshareus-back:latest
 
       - name: SSH remote and Run Docker container
-        uses: webfactory/ssh-agent@v0.5.3
+        uses: appleboy/ssh-action@master
         with:
-          ssh-private-key: ${{ secrets.REMOTE_KEY }}
-          run: |
-            ssh ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_IP }} << EOF
+          host: ${{ REMOTE_IP }}
+          username: ${{ secrets.REMOTE_USERNAME }}
+          key: ${{ secrets.REMOTE_KEY }}
+          port: 22
+          script: |
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/weshareus-back:latest
             docker weshareus-back
             docker weshareus-back
