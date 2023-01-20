@@ -16,11 +16,11 @@
         with:
           host: ${{ secrets.REMOTE_IP }}
           username: ${{ secrets.REMOTE_USERNAME }}
-          key: ${{ secrets.REMOTE_KEY }}
+          password: ${{ secrets.REMOTE_KEY }}
           port: 22
           script: |
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/weshareus-back:latest
-            docker weshareus-back
-            docker weshareus-back
+            docker stop weshareus-back
+            docker rm weshareus-back
             docker run --restart=unless-stopped --add-host=host.docker.internal:host-gateway -d -p 8080:8080 --name weshareus-back ${{ secrets.DOCKERHUB_USERNAME }}/weshareus-back:latest
             docker rmi $(docker images -f "dangling=true" -q)
