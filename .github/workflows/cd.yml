@@ -27,13 +27,12 @@ jobs:
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/weshareus-back:latest
 
       - name: SSH remote and Run Docker container
-        uses: appleboy/ssh-action@master
+        uses: fifsky/ssh-action@master
         with:
           host: ${{ secrets.REMOTE_IP }}
-          username: ${{ secrets.REMOTE_USERNAME }}
+          user: ${{ secrets.REMOTE_USERNAME }}
           key: ${{ secrets.REMOTE_KEY }}
-          port: ${{ secrets.REMOTE_PORT }}
-          script: |
+          command: |
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/weshareus-back:latest
             docker weshareus-back
             docker weshareus-back
