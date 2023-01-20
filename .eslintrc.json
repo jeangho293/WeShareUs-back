@@ -18,7 +18,7 @@
   },
   "ignorePatterns": ["node_modules/"],
   "rules": {
-    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-empty-function": "off", // use function() {}
     "@typescript-eslint/no-empty-interface": "off", // use empty {}
     "@typescript-eslint/no-explicit-any": "off", // except any error
     "max-classes-per-file": "off",
