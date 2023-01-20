@@ -29,7 +29,7 @@ jobs:
       - name: SSH remote and Run Docker container
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ REMOTE_IP }}
+          host: ${{ secrets.REMOTE_IP }}
           username: ${{ secrets.REMOTE_USERNAME }}
           key: ${{ secrets.REMOTE_KEY }}
           port: 22
