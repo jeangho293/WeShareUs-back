@@ -27,12 +27,11 @@ jobs:
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/weshareus-back:latest
 
       - name: SSH remote and Run Docker container
-        uses: fifsky/ssh-action@master
+        uses: webfactory/ssh-agent@v0.5.3
         with:
-          host: ${{ secrets.REMOTE_IP }}
-          user: ${{ secrets.REMOTE_USERNAME }}
-          key: ${{ secrets.REMOTE_KEY }}
-          command: |
+          ssh-private-key: ${{ secrets.REMOTE_KEY }}
+          run: |
+            ssh ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_IP }} << EOF
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/weshareus-back:latest
             docker weshareus-back
             docker weshareus-back
