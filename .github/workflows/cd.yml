@@ -1,9 +1,6 @@
 name: Deploy
 
-on:
-  push:
-    branches:
-      - main
+on: push
 
 jobs:
   deploy:
@@ -31,7 +28,7 @@ jobs:
         with:
           host: ${{ secrets.REMOTE_IP }}
           username: ${{ secrets.REMOTE_USERNAME }}
-          password: ${{ secrets.REMOTE_KEY }}
+          key: ${{ secrets.REMOTE_KEY }}
           port: 22
           script: |
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/weshareus-back:latest
