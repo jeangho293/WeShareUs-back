@@ -36,3 +36,4 @@ jobs:
             docker rm weshareus-back
             docker run --restart=unless-stopped --add-host=host.docker.internal:host-gateway -d -p 8080:8080 --name weshareus-back ${{ secrets.DOCKERHUB_USERNAME }}/weshareus-back:latest
             docker rmi $(docker images -f "dangling=true" -q)
+            echo ">hello"
